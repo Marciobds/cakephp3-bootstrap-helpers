@@ -77,7 +77,7 @@ class FormHelperTest extends TestCase {
         $button = $this->form->button('Test');
         $this->assertHtml([
             ['button' => [
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'type' => 'submit'
             ]], 'Test', '/button'
         ], $button);
@@ -123,7 +123,6 @@ class FormHelperTest extends TestCase {
                 'class' => 'form-group text'
             ]],
             ['label' => [
-                'class' => 'control-label',
                 'for'   => $fieldName
             ]],
             \Cake\Utility\Inflector::humanize($fieldName),
@@ -139,10 +138,10 @@ class FormHelperTest extends TestCase {
         // Horizontal form
         $this->_testInput([
             ['div' => [
-                'class' => 'form-group text'
+                'class' => 'form-group row text'
             ]],
             ['label' => [
-                'class' => 'control-label col-md-2',
+                'class' => 'col-form-label col-md-2',
                 'for' => $fieldName
             ]],
             \Cake\Utility\Inflector::humanize($fieldName),
@@ -170,7 +169,6 @@ class FormHelperTest extends TestCase {
                 'class' => 'form-group text'
             ]],
             ['label' => [
-                'class' => 'control-label',
                 'for'   => $fieldName
             ]],
             \Cake\Utility\Inflector::humanize($fieldName),
@@ -204,9 +202,7 @@ class FormHelperTest extends TestCase {
             ['div' => [
                 'class' => 'form-group'
             ]],
-            ['label' => [
-                'class' => 'control-label'
-            ]],
+            ['label' => true],
             \Cake\Utility\Inflector::humanize($fieldName),
             '/label',
             ['input' => [
@@ -219,12 +215,14 @@ class FormHelperTest extends TestCase {
         foreach($options['options'] as $key => $value) {
             $expected = array_merge($expected, [
                 ['div' => [
-                    'class' => 'radio'
+                    'class' => 'form-check'
                 ]],
                 ['label' => [
+                    'class' => 'form-check-label',
                     'for'   => $fieldName.'-'.$key
                 ]],
                 ['input' => [
+                    'class' => 'form-check-input',
                     'type'  => 'radio',
                     'name'  => $fieldName,
                     'value' => $key,
@@ -246,7 +244,6 @@ class FormHelperTest extends TestCase {
                 'class' => 'form-group'
             ]],
             ['label' => [
-                'class' => 'control-label',
                 'for' => $fieldName
             ]],
             \Cake\Utility\Inflector::humanize($fieldName),
@@ -260,18 +257,23 @@ class FormHelperTest extends TestCase {
         ];
         foreach($options['options'] as $key => $value) {
             $expected = array_merge($expected, [
+                ['div' => [
+                    'class' => 'form-check form-check-inline'
+                ]],
                 ['label' => [
-                    'class' => 'radio-inline',
+                    'class' => 'form-check-label',
                     'for'   => $fieldName.'-'.$key
                 ]],
                 ['input' => [
+                    'class' => 'form-check-input',
                     'type'  => 'radio',
                     'name'  => $fieldName,
                     'value' => $key,
                     'id'    => $fieldName.'-'.$key
                 ]],
                 $value,
-                '/label'
+                '/label',
+                '/div'
             ]);
         }
         $expected = array_merge($expected, ['/div']);
@@ -286,7 +288,7 @@ class FormHelperTest extends TestCase {
                 'class' => 'form-group'
             ]],
             ['label' => [
-                'class' => 'control-label col-md-2'
+                'class' => 'col-form-label col-md-2'
             ]],
             \Cake\Utility\Inflector::humanize($fieldName),
             '/label',
@@ -303,12 +305,14 @@ class FormHelperTest extends TestCase {
         foreach($options['options'] as $key => $value) {
             $expected = array_merge($expected, [
                 ['div' => [
-                    'class' => 'radio'
+                    'class' => 'form-check'
                 ]],
                 ['label' => [
+                    'class' => 'form-check-label',
                     'for'   => $fieldName.'-'.$key
                 ]],
                 ['input' => [
+                    'class' => 'form-check-input',
                     'type'  => 'radio',
                     'name'  => $fieldName,
                     'value' => $key,
@@ -328,7 +332,7 @@ class FormHelperTest extends TestCase {
                 'class' => 'form-group'
             ]],
             ['label' => [
-                'class' => 'control-label col-md-2',
+                'class' => 'col-form-label col-md-2',
                 'for' => $fieldName
             ]],
             \Cake\Utility\Inflector::humanize($fieldName),
@@ -345,18 +349,23 @@ class FormHelperTest extends TestCase {
         ];
         foreach($options['options'] as $key => $value) {
             $expected = array_merge($expected, [
+                ['div' => [
+                    'class' => 'form-check form-check-inline'
+                ]],
                 ['label' => [
-                    'class' => 'radio-inline',
+                    'class' => 'form-check-label',
                     'for'   => $fieldName.'-'.$key
                 ]],
                 ['input' => [
+                    'class' => 'form-check-input',
                     'type'  => 'radio',
                     'name'  => $fieldName,
                     'value' => $key,
                     'id'    => $fieldName.'-'.$key
                 ]],
                 $value,
-                '/label'
+                '/label',
+                '/div'
             ]);
         }
         $expected = array_merge($expected, ['/div', '/div']);
