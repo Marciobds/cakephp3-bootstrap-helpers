@@ -59,8 +59,8 @@ class BootstrapFormHelper extends FormHelper {
             'hiddenBlock' => '<div style="display:none;">{{content}}</div>',
             'input' => '<input type="{{type}}" name="{{name}}" class="form-control{{attrs.class}}" {{attrs}} />',
             'inputSubmit' => '<input type="{{type}}"{{attrs}}>',
-            'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group has-error {{type}}{{required}}">{{content}}{{error}}</div>',
+            'inputContainer' => '<div class="form-group has-feedback {{type}}{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group has-feedback has-error {{type}}{{required}}">{{content}}{{error}}</div>',
             'label' => '<label class="{{s_labelClass}}{{h_labelClass}}{{attrs.class}}" {{attrs}}>{{text}}</label>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
             'legend' => '<legend>{{text}}</legend>',
@@ -70,9 +70,9 @@ class BootstrapFormHelper extends FormHelper {
             'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control{{attrs.class}}" {{attrs}}>{{content}}</select>',
             'radio' => '<input type="radio" name="{{name}}" value="{{value}}"{{attrs}}>',
             'radioWrapper' => '<div class="radio">{{label}}</div>',
-            'radioContainer' => '{{h_radioContainer_start}}<div class="form-group">{{content}}</div>{{h_radioContainer_end}}',
+            'radioContainer' => '{{h_radioContainer_start}}<div class="form-group has-feedback">{{content}}</div>{{h_radioContainer_end}}',
             'textarea' => '<textarea name="{{name}}" class="form-control{{attrs.class}}" {{attrs}}>{{value}}</textarea>',
-            'submitContainer' => '<div class="form-group">{{h_submitContainer_start}}{{content}}{{h_submitContainer_end}}</div>',
+            'submitContainer' => '<div class="form-group has-feedback">{{h_submitContainer_start}}{{content}}{{h_submitContainer_end}}</div>',
         ],
         'templateClass' => 'Bootstrap\View\BootstrapStringTemplate',
         'buttons' => [
@@ -152,10 +152,10 @@ class BootstrapFormHelper extends FormHelper {
             $options['templateVars'] += [
                 'h_formGroup_start' => '<div class="'.$this->_getColClass('input').'">',
                 'h_formGroup_end'   => '</div>',
-                'h_checkboxContainer_start' => '<div class="form-group"><div class="'.$this->_getColClass('label', true)
+                'h_checkboxContainer_start' => '<div class="form-group has-feedback"><div class="'.$this->_getColClass('label', true)
                 .' '.$this->_getColClass('input').'">',
                 'h_checkboxContainer_end' => '</div></div>',
-                'h_radioContainer_start' => '<div class="form-group"><div class="'.$this->_getColClass('label', true)
+                'h_radioContainer_start' => '<div class="form-group has-feedback"><div class="'.$this->_getColClass('label', true)
                 .' '.$this->_getColClass('input').'">',
                 'h_radioContainer_end' => '</div></div>',
                 'h_submitContainer_start' => '<div class="'.$this->_getColClass('label', true).' '.$this->_getColClass('input').'">',
@@ -247,8 +247,7 @@ class BootstrapFormHelper extends FormHelper {
         if ($addonOrButtons) {
             if (is_string($addonOrButtons)) {
                 $addonOrButtons = $this->_makeIcon($addonOrButtons);
-                $addonOrButtons = '<span class="input-group-'.
-                                ($this->_matchButton($addonOrButtons) ? 'btn' : 'addon').'">'.$addonOrButtons.'</span>' ;
+                $addonOrButtons = '<span class="input-group-'.($this->_matchButton($addonOrButtons) ? 'btn' : 'addon').'">'.$addonOrButtons.'</span>' ;
             }
             else if ($addonOrButtons !== false) {
                 $addonOrButtons = '<span class="input-group-btn">'.implode('', $addonOrButtons).'</span>' ;
@@ -332,7 +331,7 @@ class BootstrapFormHelper extends FormHelper {
                 ] ;
             }
             if ($this->horizontal) {
-                $options['templates']['radioContainer'] = '<div class="form-group">{{content}}</div>';
+                $options['templates']['radioContainer'] = '<div class="form-group has-feedback">{{content}}</div>';
             }
             if (empty($options['templates'])) {
                 unset($options['templates']);
