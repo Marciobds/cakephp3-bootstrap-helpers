@@ -110,7 +110,7 @@ class FormHelper extends \Cake\View\Helper\FormHelper {
             'submitContainerHorizontal' => '<div class="form-group"><div class="{{inputColumnOffsetClass}} {{inputColumnClass}}">{{content}}</div></div>',
 
             'inputGroup' => '{{inputGroupStart}}{{input}}{{inputGroupEnd}}',
-            'inputGroupStart' => '<div class="input-group">{{prepend}}',
+            'inputGroupStart' => '<div class="input-group has-feedback">{{prepend}}',
             'inputGroupEnd' => '{{append}}</div>',
             'inputGroupAddons' => '<span class="input-group-addon">{{content}}</span>',
             'inputGroupButtons' => '<span class="input-group-btn">{{content}}</span>',
