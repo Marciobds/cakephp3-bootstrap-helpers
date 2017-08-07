@@ -12,11 +12,23 @@
  * @copyright Copyright (c) Mikaël Capelle (https://typename.fr)
  * @license https://opensource.org/licenses/mit-license.php MIT License
  */
+namespace Bootstrap\View\Widget;
 
-$helper = new \Bootstrap\View\Helper\BootstrapHtmlHelper ($this) ;
-if (!isset($params['escape']) || $params['escape'] !== false) {
-    $message = h($message);
-}
-echo $helper->alert($message, 'success', $params) ;
+use Cake\View\Widget\LabelWidget;
 
-?>
+/**
+ * Form 'widget' for creating labels that contain inline radio buttons.
+ *
+ * Generally this element is used by other widgets,
+ * and FormHelper itself.
+ */
+class InlineRadioNestingLabelWidget extends LabelWidget {
+
+    /**
+     * The template to use.
+     *
+     * @var string
+     */
+    protected $_labelTemplate = 'inlineRadioNestingLabel';
+
+};

@@ -2,15 +2,21 @@
 
 namespace Bootstrap\Test\TestCase\View\Helper;
 
-use Bootstrap\View\Helper\BootstrapHtmlHelper;
-use Bootstrap\View\Helper\BootstrapPaginatorHelper;
+use Bootstrap\View\Helper\PaginatorHelper;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
-class BootstrapPaginatorHelperTest extends TestCase {
+class PaginatorHelperTest extends TestCase {
+
+    /**
+     * Instance of PaginatorHelper.
+     *
+     * @var PaginatorHelper
+     */
+    public $paginator;
 
     /**
      * setUp method
@@ -20,11 +26,13 @@ class BootstrapPaginatorHelperTest extends TestCase {
     public function setUp()
     {
         parent::setUp();
-        $this->View = new View();
-        $this->View->Html = new BootstrapHtmlHelper($this->View);
-        $this->Paginator = new BootstrapPaginatorHelper($this->View);
-        $this->Paginator->request = new Request();
-        $this->Paginator->request->addParams([
+        $view = new View();
+        $view->loadHelper('Html', [
+            'className' => 'Bootstrap.Html'
+        ]);
+        $this->paginator = new PaginatorHelper($view);
+        $this->paginator->request = new Request();
+        $this->paginator->request->addParams([
             'paging' => [
                 'Article' => [
                     'page' => 1,
@@ -45,44 +53,46 @@ class BootstrapPaginatorHelperTest extends TestCase {
         Router::connect('/:plugin/:controller/:action/*');
     }
 
-    public function testPrev () {
+    public function testPrev() {
         $this->assertHtml([
             ['li' => [
                 'class' => 'disabled'
             ]],
             ['a' => true], '&lt;', '/a',
             '/li'
-        ], $this->Paginator->prev('<'));
+        ], $this->paginator->prev('<'));
         $this->assertHtml([
             ['li' => [
                 'class' => 'disabled'
             ]],
             ['a' => true],
             ['i' => [
-                'class' => 'glyphicon glyphicon-chevron-left'
+                'class' => 'glyphicon glyphicon-chevron-left',
+                'aria-hidden' => 'true'
             ]],
             '/i', '/a', '/li'
-        ], $this->Paginator->prev('i:chevron-left'));
+        ], $this->paginator->prev('i:chevron-left'));
     }
 
-    public function testNext () {
+    public function testNext() {
         $this->assertHtml([
             ['li' => true],
             ['a' => [
                 'href' => '/index?page=2'
             ]], '&gt;', '/a',
             '/li'
-        ], $this->Paginator->next('>'));
+        ], $this->paginator->next('>'));
         $this->assertHtml([
             ['li' => true],
             ['a' => [
                 'href' => '/index?page=2'
             ]],
             ['i' => [
-                'class' => 'glyphicon glyphicon-chevron-right'
+                'class' => 'glyphicon glyphicon-chevron-right',
+                'aria-hidden' => 'true'
             ]],
             '/i', '/a', '/li'
-        ], $this->Paginator->next('i:chevron-right'));
+        ], $this->paginator->next('i:chevron-right'));
     }
 
 };
